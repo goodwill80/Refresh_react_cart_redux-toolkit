@@ -28,6 +28,17 @@ const cartSlice = createSlice({
       const cartItem = state.cartItems.find((item) => item.id === payload.id);
       cartItem.amount = cartItem.amount - 1;
     },
+    // This will be implemented using useEffect
+    calculateTotals: (state) => {
+      let amount = 0;
+      let total = 0;
+      state.cartItems.forEach((item) => {
+        amount += item.amount;
+        total += amount * item.price;
+      });
+      state.amount = amount;
+      state.total = total;
+    },
   },
 });
 
@@ -36,4 +47,5 @@ const cartSlice = createSlice({
 // To be imported into store
 export default cartSlice.reducer;
 // To be imported into components that need to execute the despatch
-export const { clearCart, removeItem, increase, decrease } = cartSlice.actions;
+export const { clearCart, removeItem, increase, decrease, calculateTotals } =
+  cartSlice.actions;

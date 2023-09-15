@@ -30,7 +30,7 @@ function CartContainer() {
         <hr />
         <div className="cart-total">
           <h4>
-            Total <spaan>${total}</spaan>
+            Total <spaan>${total.toFixed(2)}</spaan>
           </h4>
         </div>
         <button onClick={() => dispatch(clearCart())} className="btn clear-btn">
