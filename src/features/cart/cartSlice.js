@@ -16,6 +16,10 @@ const cartSlice = createSlice({
     clearCart: (state) => {
       state.cartItems = [];
     },
+    removeItem: (state, action) => {
+      const itemId = action.payload;
+      state.cartItems = state.cartItems.filter((item) => item.id !== itemId);
+    },
   },
 });
 
@@ -24,4 +28,4 @@ const cartSlice = createSlice({
 // To be imported into store
 export default cartSlice.reducer;
 // To be imported into components that need to execute the despatch
-export const { clearCart } = cartSlice.actions;
+export const { clearCart, removeItem } = cartSlice.actions;
