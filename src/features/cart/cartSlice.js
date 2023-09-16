@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 // import cartItems from '../../cartItems';
 import axios from 'axios';
-import { openModal } from '../modal/modalSlice';
+// import { openModal } from '../modal/modalSlice';
 
 // URL
 const url = 'https://course-api.com/react-useReducer-cart-project';
@@ -73,20 +73,37 @@ const cartSlice = createSlice({
   },
 
   // State Management via API AsyncThunk
-  extraReducers: {
-    [getCartItems.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [getCartItems.fulfilled]: (state, action) => {
-      console.log(action);
-      state.isLoading = false;
-      state.cartItems = action.payload;
-    },
-    [getCartItems.rejected]: (state, action) => {
-      console.log(action.payload);
-      state.isLoading = false;
-    },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getCartItems.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getCartItems.fulfilled, (state, action) => {
+        console.log(action);
+        state.isLoading = false;
+        state.cartItems = action.payload;
+      })
+      .addCase(getCartItems.rejected, (state, action) => {
+        console.log(action.payload);
+        state.isLoading = false;
+      });
   },
+
+  // Old method
+  //   extraReducers: {
+  //     [getCartItems.pending]: (state) => {
+  //       state.isLoading = true;
+  //     },
+  //     [getCartItems.fulfilled]: (state, action) => {
+  //       console.log(action);
+  //       state.isLoading = false;
+  //       state.cartItems = action.payload;
+  //     },
+  //     [getCartItems.rejected]: (state, action) => {
+  //       console.log(action.payload);
+  //       state.isLoading = false;
+  //     },
+  //   },
 });
 
 // console.log(cartSlice);
